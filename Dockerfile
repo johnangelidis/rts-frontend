@@ -15,8 +15,8 @@ RUN npm ci
 # Copy the rest of the application source code
 COPY . .
 
-# Build the Angular application for production
-RUN npm run build -- --configuration=production
+# Build the Angular application
+RUN npm run build
 
 # ==========================================
 # Stage 2: Serve the application with NGINX
