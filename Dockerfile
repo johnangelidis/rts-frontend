@@ -1,31 +1,37 @@
-FROM node:22-alpine AS build
+# ==========================================
+# Stage 1: Build the Angular application
+# ==========================================
+FROM node:20-alpine AS build
 
+# Set the working directory inside the container
 WORKDIR /app
 
-RUN corepack enable
+# Copy dependency manifests first to leverage Docker layer caching
+COPY package*.json ./
 
-COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+# Install project dependencies cleanly
+RUN npm ci
 
+# Copy the rest of the application source code
 COPY . .
-RUN pnpm build
 
-# Angular versions differ in whether the browser bundle is emitted at
-# dist/<project>/browser or directly at dist/<project>. Normalize both forms.
-RUN set -eux; \
-    mkdir -p /app/site; \
-    index_dir="$$(dirname "$$(find /app/dist -type f -name index.html -print -quit)")"; \
-    test -n "$$index_dir"; \
-    cp -a "$$index_dir/." /app/site/
+# Build the Angular application for production
+RUN npm run build -- --configuration=production
 
-FROM nginx:1.27-alpine AS runtime
+# ==========================================
+# Stage 2: Serve the application with NGINX
+# ==========================================
+FROM nginx:alpine
 
+# Copy custom NGINX configuration to handle client-side routing
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/site/ /usr/share/nginx/html/
-COPY docker-entrypoint-runtime-config.sh /docker-entrypoint.d/40-runtime-config.sh
 
-RUN chmod +x /docker-entrypoint.d/40-runtime-config.sh
+# Copy the compiled production build output over to NGINX HTML folder
+# NOTE: Replace "your-app-name" with the actual folder name generated inside dist/
+COPY --from=build /app/dist/your-app-name/browser /usr/share/nginx/html
 
+# Expose port 80
 EXPOSE 80
 
+# Start NGINX
 CMD ["nginx", "-g", "daemon off;"]
