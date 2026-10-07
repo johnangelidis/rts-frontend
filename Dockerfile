@@ -26,8 +26,7 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy the compiled production build output over to NGINX HTML folder
-# NOTE: Replace "your-app-name" with the actual folder name generated inside dist/
-COPY --from=build /app/dist/your-app-name/browser /usr/share/nginx/html
+COPY --from=build /app/dist/rts-frontend/browser /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
