@@ -11,6 +11,8 @@ ng serve
 
 The application runs at `http://localhost:4200`. During development, `/rts-backend` is proxied to `http://localhost:8080/rts-backend`.
 
+The application is available at `https://rts-frontend.onrender.com/`
+
 ## Pages
 
 - `/` - public landing page
