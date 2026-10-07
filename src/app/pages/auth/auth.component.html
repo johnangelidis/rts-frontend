@@ -1,0 +1,45 @@
+<section class="auth-page">
+  <mat-card class="auth-card">
+    <mat-tab-group (selectedIndexChange)="selectMode($event)" [selectedIndex]="mode() === 'login' ? 0 : 1"><mat-tab
+        label="Log in"></mat-tab><mat-tab label="Sign up"></mat-tab></mat-tab-group>
+    <div class="auth-card-body">
+      @if (error(); as message) {
+      <div class="error-banner">
+        <mat-icon>error_outline</mat-icon>{{ message }}
+      </div>
+      }
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field appearance="outline"><mat-label>Username</mat-label><input matInput formControlName="username"
+            autocomplete="username" /><mat-icon matPrefix>person_outline</mat-icon>
+          @if (
+          form.controls.username.hasError("required") &&
+          form.controls.username.touched
+          ) {
+          <mat-error>Username is required</mat-error>
+          }</mat-form-field><mat-form-field appearance="outline"><mat-label>Password</mat-label><input matInput
+            type="password" formControlName="password" autocomplete="current-password" /><mat-icon
+            matPrefix>lock_outline</mat-icon>
+          @if (
+          form.controls.password.hasError("required") &&
+          form.controls.password.touched
+          ) {
+          <mat-error>Password is required</mat-error>
+          }
+          @if (
+          form.controls.password.hasError("minlength") &&
+          form.controls.password.touched
+          ) {
+          <mat-error>Password must be at least 6 characters</mat-error>
+          }</mat-form-field><button mat-flat-button color="primary" class="submit-button" type="submit"
+          [disabled]="loading()">
+          @if (loading()) {
+          <mat-spinner diameter="20" />
+          } @else {
+          <ng-container>{{ mode() === "login" ? "Log in" : "Create account" }}
+            <mat-icon>arrow_forward</mat-icon></ng-container>
+          }
+        </button>
+      </form>
+    </div>
+  </mat-card>
+</section>

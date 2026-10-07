@@ -1,0 +1,75 @@
+<section class="content-page search-page">
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow">Ticker Search</p>
+      <h1>What are you watching?</h1>
+      <p>Search a stock symbol to see its opening price for today.</p>
+    </div>
+    <mat-icon class="heading-icon">query_stats</mat-icon>
+  </div>
+  <mat-card class="search-card">
+    <form [formGroup]="form" (ngSubmit)="search()">
+      <mat-form-field appearance="outline">
+        <mat-label>Stock symbol</mat-label>
+        <input matInput formControlName="symbol" placeholder="AAPL" autocomplete="off" /><mat-icon
+          matPrefix>search</mat-icon>
+        @if (
+        form.controls.symbol.hasError("required") &&
+        form.controls.symbol.touched
+        ) {
+        <mat-error>Enter a stock symbol</mat-error>
+        }
+        @if (
+        form.controls.symbol.hasError("pattern") &&
+        form.controls.symbol.touched
+        ) {
+        <mat-error>Use 1–10 letters, dots, or hyphens</mat-error>
+        }
+      </mat-form-field><button mat-flat-button color="primary" type="submit" [disabled]="loading()">
+        @if (loading()) {
+        <mat-spinner diameter="20" />
+        } @else {
+        <ng-container>Search <mat-icon>arrow_forward</mat-icon></ng-container>
+        }
+      </button>
+    </form>
+  </mat-card>
+  @if (error(); as message) {
+  <div class="error-banner">
+    <mat-icon>error_outline</mat-icon>{{ message }}
+  </div>
+  }
+  @if (quote(); as result) {
+  <mat-card class="quote-card">
+    <div class="quote-topline">
+      <div>
+        <span class="result-label">Opening price</span>
+        <h2>{{ searchedSymbol() }}</h2>
+      </div>
+      <span class="quote-time">Today</span>
+    </div>
+    <div class="price">{{ result.o | number: "1.2-2" }}<span> USD</span></div>
+    <div class="quote-meta">
+      <span>Previous close {{ result.pc | number: "1.2-2" }}</span><span>Day range {{ result.l | number: "1.2-2" }} –
+        {{ result.h | number: "1.2-2" }}</span>
+    </div>
+    <button mat-stroked-button type="button" (click)="saveFavorite()"
+      [disabled]="saving() || saved() || favoritesLoading()">
+      @if (saved()) {
+      <ng-container><mat-icon>check</mat-icon>Already saved</ng-container>
+      } @else {
+      <ng-container>
+        <mat-icon>bookmark_add</mat-icon>
+        Save to favorites
+      </ng-container>
+      }
+    </button>
+  </mat-card>
+  } @else if (!loading() && !error()) {
+  <div class="empty-state">
+    <mat-icon>candlestick_chart</mat-icon>
+    <h2>Start with a symbol</h2>
+    <p>Your opening price result will appear here.</p>
+  </div>
+  }
+</section>

@@ -1,0 +1,51 @@
+<section class="content-page profile-page">
+  <div class="profile-heading">
+    <div class="avatar"><mat-icon>person</mat-icon></div>
+    <div>
+      <p class="eyebrow">Your profile</p>
+      <h1>{{ auth.user()?.username }}</h1>
+      <p>Keep an eye on the tickers you care about.</p>
+    </div>
+  </div>
+  <div class="section-heading">
+    <div>
+      <h2>Your favorites</h2>
+      <p>Opening prices captured when you save a ticker.</p>
+    </div>
+    <a mat-flat-button color="primary" routerLink="/search"><mat-icon>add</mat-icon>Add ticker</a>
+  </div>
+  @if (loading()) {
+  <div class="loading-state">
+    <mat-spinner diameter="42" /><span>Loading your watchlist…</span>
+  </div>
+  } @else if (error(); as message) {
+  <div class="error-banner">
+    <mat-icon>error_outline</mat-icon>{{ message }}
+  </div>
+  } @else if (!favorites().length) {
+  <mat-card class="empty-card"><mat-icon>bookmark_border</mat-icon>
+    <h2>Your watchlist is empty</h2>
+    <p>Search for a ticker to save it to your profile.</p>
+    <a mat-stroked-button routerLink="/search">Find a ticker</a>
+  </mat-card>
+  } @else {
+  <div class="favorites-list">
+    @for (favorite of favorites(); track favorite.id) {
+    <mat-card class="favorite-row">
+      <div class="ticker-icon"><mat-icon>show_chart</mat-icon></div>
+      <div class="ticker-name">
+        <strong>{{ favorite.ticker }}</strong><span>Opening price</span>
+      </div>
+      <div class="ticker-price">
+        <strong>{{ favorite.openingPrice | number: "1.2-2" }}
+          <small>USD</small></strong>
+      </div>
+      <button mat-icon-button type="button" aria-label="Remove favorite" (click)="remove(favorite.id)"
+        [disabled]="removing() === favorite.id">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+    </mat-card>
+    }
+  </div>
+  }
+</section>

@@ -1,0 +1,202 @@
+.content-page {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 70px 5vw 100px;
+}
+
+.profile-heading {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 44px;
+    border-bottom: 1px solid #e0e7f0;
+}
+
+.avatar {
+    display: grid;
+    width: 78px;
+    height: 78px;
+    place-items: center;
+    border-radius: 14px;
+    color: #2161e8;
+    background: #e5efff;
+}
+
+.avatar mat-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 42px;
+}
+
+.eyebrow {
+    margin: 0 0 8px;
+    color: #2161e8;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.profile-heading h1 {
+    margin: 0;
+    color: #12233f;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.35rem;
+    letter-spacing: -.04em;
+}
+
+.profile-heading p:last-child {
+    margin: 7px 0 0;
+    color: #728198;
+}
+
+.section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    margin: 44px 0 20px;
+}
+
+.section-heading h2 {
+    margin: 0 0 5px;
+    color: #12233f;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.6rem;
+}
+
+.section-heading p {
+    margin: 0;
+    color: #8190a4;
+}
+
+.section-heading button mat-icon {
+    margin-right: 6px;
+}
+
+.favorites-list {
+    display: grid;
+    gap: 12px;
+}
+
+.favorite-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border: 1px solid #e2e9f2;
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+.ticker-icon {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 9px;
+    color: #2161e8;
+    background: #f0f5ff;
+}
+
+.ticker-name {
+    display: grid;
+    gap: 4px;
+    flex: 1;
+}
+
+.ticker-name strong,
+.ticker-price strong {
+    color: #1e2e47;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.ticker-name span,
+.ticker-price small {
+    color: #8592a5;
+    font-size: .78rem;
+}
+
+.ticker-price {
+    margin-right: 18px;
+    text-align: right;
+}
+
+.ticker-price strong {
+    font-size: 1.1rem;
+}
+
+.muted {
+    color: #a0abba;
+    font-size: .9rem;
+}
+
+.favorite-row button {
+    color: #8c9aae;
+}
+
+.empty-card {
+    display: grid;
+    justify-items: center;
+    padding: 60px 20px;
+    border: 1px dashed #cdd9e7;
+    border-radius: 16px;
+    box-shadow: none;
+    text-align: center;
+}
+
+.empty-card>mat-icon {
+    color: #9fb5d5;
+    font-size: 52px;
+    width: 52px;
+    height: 52px;
+}
+
+.empty-card h2 {
+    margin: 15px 0 6px;
+    color: #435570;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.empty-card p {
+    margin: 0 0 22px;
+    color: #8290a2;
+}
+
+.loading-state {
+    display: grid;
+    justify-items: center;
+    gap: 17px;
+    padding: 80px;
+    color: #8190a4;
+}
+
+.error-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px;
+    border-radius: 9px;
+    color: #a33b3b;
+    background: #fff1f1;
+}
+
+@media (max-width: 620px) {
+    .section-heading {
+        align-items: start;
+        gap: 16px;
+        flex-direction: column;
+    }
+
+    .favorite-row {
+        padding: 13px;
+        gap: 10px;
+    }
+
+    .ticker-price {
+        margin-right: 0;
+    }
+
+    .profile-heading h1 {
+        font-size: 2.2rem;
+    }
+}

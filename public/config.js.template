@@ -1,0 +1,5 @@
+window.__env = {
+  apiBaseUrl: "${API_BASE_URL}",
+  finnhubApiUrl: "${FINNHUB_API_URL}",
+  finnhubApiKey: "${FINNHUB_API_KEY}"
+};

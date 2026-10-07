@@ -1,0 +1,72 @@
+@use '@angular/material' as mat;
+
+html {
+    @include mat.theme((color: (primary: mat.$azure-palette, tertiary: mat.$blue-palette), typography: (plain-family: 'DM Sans', brand-family: 'Space Grotesk'), density: 0));
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    color: #334155;
+    background: #f8fafc;
+    font-family: 'DM Sans', sans-serif;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+button[mat-button],
+button[mat-flat-button],
+button[mat-stroked-button],
+a[mat-button],
+a[mat-flat-button],
+a[mat-stroked-button] {
+    align-items: center;
+    display: inline-flex;
+    gap: 6px;
+    justify-content: center;
+}
+
+button[mat-button] .mdc-button__label,
+button[mat-flat-button] .mdc-button__label,
+button[mat-stroked-button] .mdc-button__label,
+a[mat-button] .mdc-button__label,
+a[mat-flat-button] .mdc-button__label,
+a[mat-stroked-button] .mdc-button__label {
+    align-items: center;
+    display: inline-flex;
+    gap: 6px;
+}
+
+button[mat-button] mat-icon,
+button[mat-flat-button] mat-icon,
+button[mat-stroked-button] mat-icon,
+a[mat-button] mat-icon,
+a[mat-flat-button] mat-icon,
+a[mat-stroked-button] mat-icon {
+    margin: 0 !important;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:not([mat-button]):not([mat-flat-button]):not([mat-stroked-button]):hover {
+    color: #2161e8;
+}
+
+a:focus-visible {
+    outline: 2px solid #2161e8;
+    outline-offset: 3px;
+}
